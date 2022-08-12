@@ -2,6 +2,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 @WebServlet(name = "SignIn", value = "/SignIn")
 public class SignIn extends HttpServlet {
@@ -20,13 +21,22 @@ public class SignIn extends HttpServlet {
        if(uname == null || email == null || psw == null || repeat_psw == null){
            request.setAttribute("error","Missing Input");
            doGet(request,response);
-       }
-       else {
-           if (!psw.equalsIgnoreCase(repeat_psw)) {
 
+       }
+       else if (!psw.equalsIgnoreCase(repeat_psw)){
                request.setAttribute("error", "The password does not match");
                doGet(request, response);
+
+       }
+       else {
+           try {
+               DB db = new DB();
+               db.registration(uname, psw, email);
+           } catch (NoSuchAlgorithmException e) {
+               throw new RuntimeException(e);
            }
+
+
        }
 
     }

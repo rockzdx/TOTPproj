@@ -13,6 +13,10 @@
         <element id="directory" name="classes">
           <element id="module-output" name="TOTP" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: de.taimos:totp:1.0" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.8" />
+        </element>
       </element>
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/TOTP-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
