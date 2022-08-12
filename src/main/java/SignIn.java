@@ -3,11 +3,11 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "Insert", value = "/Insert")
-public class Insert extends HttpServlet {
+@WebServlet(name = "SignIn", value = "/SignIn")
+public class SignIn extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/WEB-INF/Insert.jsp").forward(request,response);
+        getServletContext().getRequestDispatcher("/SignIn.jsp").forward(request,response);
     }
 
     @Override

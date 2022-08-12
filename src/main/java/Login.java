@@ -8,18 +8,22 @@ import java.io.PrintWriter;
 public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/WEB-INF/Login.jsp").forward(request,response);
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            String uname = request.getParameter("uname");
-            int psw = Integer.parseInt(request.getParameter("psw"));
-        }catch (Exception e){
-
-        }
+        getServletContext().getRequestDispatcher("/Login.jsp").forward(request,response);
         }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            String uname = request.getParameter("uname");
+            int psw = Integer.parseInt(request.getParameter("psw"));
+
+            System.out.println(uname);
+            doGet(request,response);
+        }catch (Exception e){}
+        //getServletContext().getRequestDispatcher("/Login.jsp").forward(request,response);
     }
+
 }
+
