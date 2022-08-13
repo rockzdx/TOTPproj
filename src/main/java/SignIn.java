@@ -9,7 +9,6 @@ public class SignIn extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/SignIn.jsp").forward(request,response);
-
     }
 
     @Override
@@ -21,23 +20,24 @@ public class SignIn extends HttpServlet {
        if(uname == null || email == null || psw == null || repeat_psw == null){
            request.setAttribute("error","Missing Input");
            doGet(request,response);
-
        }
+
        else if (!psw.equalsIgnoreCase(repeat_psw)){
                request.setAttribute("error", "The password does not match");
                doGet(request, response);
-
        }
+
        else {
            try {
+               System.out.println("cockers");
                DB db = new DB();
                db.registration(uname, psw, email);
+
            } catch (NoSuchAlgorithmException e) {
                throw new RuntimeException(e);
+           } catch (ClassNotFoundException e) {
+               throw new RuntimeException(e);
            }
-
-
        }
-
     }
 }
