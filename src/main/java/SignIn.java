@@ -17,6 +17,7 @@ public class SignIn extends HttpServlet {
         String email = request.getParameter("email");
         String psw = request.getParameter("psw");
         String repeat_psw = request.getParameter("psw-repeat");
+        System.out.println(uname);
        if(uname == null || email == null || psw == null || repeat_psw == null){
            request.setAttribute("error","Missing Input");
            doGet(request,response);

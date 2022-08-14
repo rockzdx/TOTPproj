@@ -91,13 +91,16 @@ public class DB {
         }
 
     }
-    public void login(String username, String pass){
+    public boolean login(String username, String pass){
 
         try {
             Statement s = this.connection.createStatement();
-            String sql = "SELECT pass FROM userAuth WHERE username = '"+username+"';";
+            String sql = "SELECT pass FROM userAuth WHERE username = ?;";
 
-            String sqlpass="";
+            PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            int i = preparedStatement.executeUpdate();
+            String sqlpass="a";
             ResultSet rs = s.executeQuery(sql);
 
             while (rs.next()) {
@@ -105,10 +108,10 @@ public class DB {
             }
 
             if(sqlpass.equals(pass)){
-                //response 1
+                return true;
             }
             else{
-                //response 0
+                return false;
             }
 
         }

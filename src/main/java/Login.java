@@ -13,17 +13,24 @@ public class Login extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+     String uname = '';
+     String psw ='';
+        boolean val =false;
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            String uname = request.getParameter("uname");
-            String psw = request.getParameter("psw");
+            uname = request.getParameter("uname");
+             psw = request.getParameter("psw");
 
             DB db = new DB();
-            db.login(uname, psw);
-
+            //db.login(uname, psw);
+            if( uname != null && psw != null ){
+                boolean val = db.login(uname,psw);
+            }
             doGet(request,response);
         }catch (Exception e){}
+        if(val){
+            getServletContext().getRequestDispatcher("/Mainpage.html").forward(request,response);
+        }
         //getServletContext().getRequestDispatcher("/Login.jsp").forward(request,response);
     }
 
