@@ -95,12 +95,9 @@ public class DB {
 
         try {
             Statement s = this.connection.createStatement();
-            String sql = "SELECT pass FROM userAuth WHERE username = ?;";
+            String sql = "SELECT pass FROM userAuth WHERE username = '"+username+"';";
 
-            PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
-            preparedStatement.setString(1, username);
-            int i = preparedStatement.executeUpdate();
-            String sqlpass="a";
+            String sqlpass="";
             ResultSet rs = s.executeQuery(sql);
 
             while (rs.next()) {

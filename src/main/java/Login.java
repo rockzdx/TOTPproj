@@ -17,9 +17,11 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             String uname = request.getParameter("uname");
-            int psw = Integer.parseInt(request.getParameter("psw"));
+            String psw = request.getParameter("psw");
 
-            System.out.println(uname);
+            DB db = new DB();
+            db.login(uname, psw);
+
             doGet(request,response);
         }catch (Exception e){}
         //getServletContext().getRequestDispatcher("/Login.jsp").forward(request,response);
