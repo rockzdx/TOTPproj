@@ -20,61 +20,43 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.*;
-
-
 public class DB {
-
     Hash h = new Hash();
     SecureRandom random = new SecureRandom();
     MessageDigest md = MessageDigest.getInstance("SHA-256");
     private static final String JDBC_CONNECTION_STRING = "jdbc:mysql://localhost:3306/project";
-
     private Connection connection = null;
-
-
     public DB() throws NoSuchAlgorithmException, ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
-
         try {
             this.connection = DriverManager.getConnection(JDBC_CONNECTION_STRING, "root", "root123");
         } catch (SQLException var2) {
             this.error(var2);
         }
     }
-
     public void testfunc() {
-
         try {
             Statement s = this.connection.createStatement();
             ResultSet results = s.executeQuery("SELECT name from userAuth");
-
             while (results.next()) {
-
                 String result = results.getString(results.findColumn("name"));
                 System.out.println(result);
-
             }
         } catch (SQLException var4) {
             this.error(var4);
         }
     }
-
     public void registration(String username, String pass, String email){
-
         try {
-
             Statement s = this.connection.createStatement();
-
             byte[] bytes = new byte[20];
             random.nextBytes(bytes);
             Base32 base32 = new Base32();
             String passwordhashkey = base32.encodeToString(bytes);
-
             bytes = new byte[20];
             random.nextBytes(bytes);
             base32 = new Base32();
             String userotphash = base32.encodeToString(bytes);
-
             String sql = "insert into userAuth ( username ,pass , useridhash , userotphash , email ) values (?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
             preparedStatement.setString(1, username);
@@ -83,40 +65,33 @@ public class DB {
             preparedStatement.setString(4, userotphash);
             preparedStatement.setString(5, email);
             int i = preparedStatement.executeUpdate();
-
         }
-
         catch (SQLException var4) {
             this.error(var4);
         }
-
     }
     public boolean login(String username, String pass){
 
         try {
             Statement s = this.connection.createStatement();
-            String sql = "SELECT pass FROM userAuth WHERE username = ?;";
+            String sql = "SELECT pass FROM userAuth WHERE username = '" + username + "';";
 
-            PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
-            preparedStatement.setString(1, username);
-            int i = preparedStatement.executeUpdate();
-            String sqlpass="a";
+            String sqlpass = "";
             ResultSet rs = s.executeQuery(sql);
 
             while (rs.next()) {
+
+
                 sqlpass = rs.getString(1);
             }
 
-            if(sqlpass.equals(pass)){
-                return true;
-            }
-            else{
-                return false;
-            }
+            return sqlpass.equals(pass);
+
 
         }
         catch (SQLException var4) {
             this.error(var4);
+            return false;
         }
     }
 

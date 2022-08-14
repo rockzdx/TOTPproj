@@ -19,18 +19,23 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             uname = request.getParameter("uname");
-             psw = request.getParameter("psw");
+            psw = request.getParameter("psw");
 
             DB db = new DB();
             //db.login(uname, psw);
-            if( uname != null && psw != null ){
-                 val = db.login(uname,psw);
+            if (uname != null && psw != null) {
+                val = db.login(uname, psw);
+                System.out.print("cock1");
+                if (val) {
+                    System.out.print("cock");
+                    getServletContext().getRequestDispatcher("/Mainpage.html").forward(request, response);
+                }
             }
-            doGet(request,response);
-        }catch (Exception e){}
-        if(val){
-            getServletContext().getRequestDispatcher("/Mainpage.html").forward(request,response);
+            doGet(request, response);
+        } catch (Exception e) {
+            System.out.println(e);
         }
+
         //getServletContext().getRequestDispatcher("/Login.jsp").forward(request,response);
     }
 
