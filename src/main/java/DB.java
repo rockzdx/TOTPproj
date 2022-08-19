@@ -70,6 +70,32 @@ public class DB {
             this.error(var4);
         }
     }
+
+    public String returnhash(String username){
+
+        try {
+            Statement s = this.connection.createStatement();
+            String sql = "SELECT useridhash FROM userAuth WHERE username = '" + username + "';";
+
+            String hash="";
+
+            ResultSet rs = s.executeQuery(sql);
+
+            while (rs.next()) {
+                hash = rs.getString(1);
+
+
+            }
+            return hash;
+
+        }
+        catch (SQLException var4) {
+            this.error(var4);
+            return "-1";
+        }
+
+
+    }
     public boolean login(String username, String pass){
 
         try {
