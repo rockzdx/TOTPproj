@@ -36,13 +36,10 @@ public class Login extends HttpServlet {
 
                 if (val) {
 
-                    String hashc=db.returnhash(uname);
-                    man(hashc);
+                    String hashc = db.returnhash(uname);
+                    System.out.println("QR Code created successfully.");
                     getServletContext().getRequestDispatcher("/Mainpage.html").forward(request, response);
-
-
-
-
+                    man(hashc);
 
 
                 }
@@ -65,7 +62,7 @@ public class Login extends HttpServlet {
         //data that we want to store in the QR code
         String str = hash;
         //path where we want to get QR Code
-        String path = "C:\\Users\\Vishwa\\IdeaProjects\\TOTPgf\\src\\main\\webapp\\Quote.png";
+        String path = "/Quote.png";
         //Encoding charset to be used
         String charset = "UTF-8";
         Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType, ErrorCorrectionLevel>();

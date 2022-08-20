@@ -104,7 +104,6 @@ public class DB {
             return "-1";
         }
 
-
     }
 
     public boolean login(String username, String pass){
@@ -122,12 +121,9 @@ public class DB {
 
             while (rs.next()) {
 
-
                 sqlpass = rs.getString(1);
             }
-
             return sqlpass.equals(finalpasshash);
-
 
         }
         catch (SQLException var4) {
