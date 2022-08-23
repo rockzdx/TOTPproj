@@ -1,5 +1,7 @@
 import org.apache.commons.codec.binary.Base32;
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.codec.digest.Crypt;
+import org.json.simple.JSONObject;
 import java.util.Random;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -48,19 +50,27 @@ public class DB {
     }
     public void registration(String username, String pass, String email){
         try {
+
             Statement s = this.connection.createStatement();
+            //Pass hashing
             byte[] bytes = new byte[20];
             random.nextBytes(bytes);
             Base32 base32 = new Base32();
             String passwordhashkey = base32.encodeToString(bytes);
+            String finalpasshash = "$6$";
+            finalpasshash = finalpasshash.concat(passwordhashkey);
+            finalpasshash = Crypt.crypt(pass, finalpasshash);
+
+            //OTP salt
             bytes = new byte[20];
             random.nextBytes(bytes);
             base32 = new Base32();
             String userotphash = base32.encodeToString(bytes);
-            String sql = "insert into userAuth ( username ,pass , useridhash , userotphash , email ) values (?, ?, ?, ?, ?)";
+            String sql = "insert into userAuth ( username , pass , useridhash , userotphash , email ) values (?, ?, ?, ?, ?)";
+
             PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, pass);
+            preparedStatement.setString(2, finalpasshash);
             preparedStatement.setString(3, passwordhashkey);
             preparedStatement.setString(4, userotphash);
             preparedStatement.setString(5, email);
@@ -81,6 +91,7 @@ public class DB {
 
             ResultSet rs = s.executeQuery(sql);
 
+            //ig return only one column
             while (rs.next()) {
                 hash = rs.getString(1);
 
@@ -94,8 +105,50 @@ public class DB {
             return "-1";
         }
 
-
     }
+
+    public int retrieveUserID(String uname) throws SQLException {
+        int userid = -1;
+
+        String sql = "Select user_id from userAuth where username ='"+ uname +"';";
+
+        Statement s = this.connection.createStatement();
+        ResultSet rs = s.executeQuery(sql);
+
+
+        //ig return only one column
+        while (rs.next()) {
+            userid = rs.getInt(1);
+        }
+
+        System.out.println(userid);
+        return userid;
+    }
+    public String retrieveAllHashKey(String uname) throws SQLException {
+        {
+            int user_id = retrieveUserID(uname);
+            String sql = "Select keylist.hashkey from keylist where user_id =" + user_id +";";
+
+            Statement s = this.connection.createStatement();
+
+
+            String hashJson = "";
+
+
+            ResultSet rs = s.executeQuery(sql);
+
+            //ig return only one column
+            while (rs.next()) {
+                hashJson = rs.getString(1);
+
+
+            }
+
+            System.out.println(hashJson);
+            return hashJson;
+        }
+    }
+
     public boolean login(String username, String pass){
 
         try {
@@ -104,15 +157,16 @@ public class DB {
 
             String sqlpass = "";
             ResultSet rs = s.executeQuery(sql);
+            String finalpasshash = "$6$";
+            String passwordhashkey = returnhash(username);
+            finalpasshash = finalpasshash.concat(passwordhashkey);
+            finalpasshash = Crypt.crypt(pass, finalpasshash);
 
             while (rs.next()) {
 
-
                 sqlpass = rs.getString(1);
             }
-
-            return sqlpass.equals(pass);
-
+            return sqlpass.equals(finalpasshash);
 
         }
         catch (SQLException var4) {

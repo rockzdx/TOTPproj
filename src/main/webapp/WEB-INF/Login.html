@@ -4,18 +4,37 @@
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
+
+<script>
+    function onSubmit()
+    {
+        var uname=document.getElementById("username");
+        var pass = document.getElementById("password");
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/Login", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+        xhr.send("uname=" + uname + "psw=" + pass);
+
+
+        //After this If you want you can get its reponse and display it in specific div element under login page itself
+        // and display it there
+        //You can also add other divs and display whatever you want
+    }
+
+</script>
+
 <body>
-<form action="/Login" method="post">
+<form> <!--action="/Login" method="post"-->
 
 
   <div class="container">
     <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
+    <input id="username" type="text" placeholder="Enter Username" name="uname" required>
 
     <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
+    <input id="password" type="password" placeholder="Enter Password" name="psw" required>
 
-    <button type="submit">Login</button>
+    <button type="submit" onclick="onSubmit()">Login</button>
 
   </div>
 

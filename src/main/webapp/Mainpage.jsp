@@ -7,7 +7,14 @@
 <Body>
 <p>
   <b> Welcome to the Ecommerce website"</b>
-  <img src="src/main/webapp/Quote.png"/>
+    <%
+      String uname = (String) request.getAttribute("uname");
+
+    %>
+
+    <img src="/getQRCodeImgStream?uname=<%=uname%>" />
+
   </p>
+
 </Body>
 </Html>
