@@ -13,8 +13,6 @@ public class sync extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/sync.jsp").forward(request,response);
 
-
-
     }
 
     @Override
