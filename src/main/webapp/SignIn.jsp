@@ -1,3 +1,5 @@
+<center>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
 <form action="/SignIn"  method = "post" style="border:1px solid #ccc">
     <div class="container">
         <h1>Sign Up</h1>
@@ -20,7 +22,6 @@
             <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
         </label><br>
         <h3> <p> ${error}</p></h3>
-        <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
 
         <div class="clearfix">
             <button type="button" class="cancelbtn">Cancel</button>
@@ -28,3 +29,4 @@
         </div>
     </div>
 </form>
+</center>

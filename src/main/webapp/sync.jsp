@@ -9,12 +9,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
 <body>
 
-
+<center>
 
 <form action="/sync" method="post">
 
@@ -32,5 +33,7 @@
 
 
 </form>
+
+</center>
 </body>
 </html>
