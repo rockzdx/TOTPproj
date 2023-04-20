@@ -18,14 +18,13 @@ public class QRImgStreamServlet extends HttpServlet {
         // Get the absolute path of the image /foldername/iamgefilename
         String filename = "/qrcodefolder/QR_" + uname + ".png";
         // retrieve mimeType dynamically
-//        String mime = cntx.getMimeType(filename);
-
-//        resp.setContentType(mime);
+        //String mime = cntx.getMimeType(filename)
+        //resp.setContentType(mime);
         resp.setContentType("image/png");
         File file = new File(filename);
         resp.setContentLength((int)file.length());
 
-        FileInputStream in = new FileInputStream(file);//QRiamge file variable
+        FileInputStream in = new FileInputStream(file); //QRiamge file variable
         OutputStream out = resp.getOutputStream();
 
         // Copy the contents of the file to the output stream

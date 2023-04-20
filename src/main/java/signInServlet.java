@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
 @WebServlet(name = "SignIn", value = "/SignIn")
-public class SignIn extends HttpServlet {
+public class signInServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/SignIn.jsp").forward(request,response);

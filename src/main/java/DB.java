@@ -66,6 +66,7 @@ public class DB {
             random.nextBytes(bytes);
             base32 = new Base32();
             String userotphash = base32.encodeToString(bytes);
+            //userotphash.startsWith();
             String sql = "insert into userAuth ( username , pass , useridhash , userotphash , email ) values (?, ?, ?, ?, ?)";
 
             PreparedStatement preparedStatement = this.connection.prepareStatement(sql);

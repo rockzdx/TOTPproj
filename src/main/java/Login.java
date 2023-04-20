@@ -38,23 +38,12 @@ public class Login extends HttpServlet {
                 if (val) {
                     String hashc=db.returnhash(uname);
                     man(hashc, uname);
-//                     System.out.println(path);
+
                     request.setAttribute("uname",uname);
                     System.out.println("testing indb");
 
                     String hashJson =db.retrieveAllHashKey(uname);
                     System.out.println(db.retrieveUserID(uname));
-
-//                    JsonObject jsonObject = new JsonParser().parse(hashJson).getAsJsonObject();
-
-                    //jsonnnnnnnnn
-//                    String valueOfAmazon = jsonObject.get("amazon").getAsString(); //John
-
-
-//                    getServletContext().getRequestDispatcher("/Mainpage.jsp").forward(request, response);
-                    /////////
-
-
 
                     String filename = "/qrcodefolder/QR_" + uname + ".png";
                     response.setContentType("image/png");
