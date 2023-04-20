@@ -2,24 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
+
+<!--<script>
+    function onSubmit()
+    {
+        var uname=document.getElementById("username");
+        var pass = document.getElementById("password");
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/Login", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+        xhr.send("uname=" + uname + "psw=" + pass);
+
+
+        //After this If you want you can get its reponse and display it in specific div element under login page itself
+        // and display it there
+        //You can also add other divs and display whatever you want
+    }
+
+</script>
+-->
 <body>
 <form action="/Login" method="post">
 
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
-  <div class="container">
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="css/components.css">
+
+    <div class="container">
+        <h3>login now</h3>
     <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
+    <input id="username" type="text" placeholder="Enter Username" name="uname" required>
 
     <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
+    <input id="password" type="password" placeholder="Enter Password" name="psw" required>
+        <p>don't have an account? <a href="">register now</a></p>
+    <button type="submit" onclick="onSubmit()">Login</button>
 
-    <button type="submit">Login</button>
 
   </div>
 
 
 </form>
 </body>
+
+
 </html>

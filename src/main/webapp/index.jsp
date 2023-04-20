@@ -3,6 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+    </center>
+
     <title>JSP - Hello World</title>
 </head>
 <body>

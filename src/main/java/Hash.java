@@ -7,7 +7,7 @@ import org.apache.commons.codec.binary.Hex;
 
 
 public class Hash {
-    public static String getTOTPCode(String secretKey) {
+    public String getTOTPCode(String secretKey) {
         Base32 base32 = new Base32();
         byte[] bytes = base32.decode(secretKey);
         String hexKey = Hex.encodeHexString(bytes);

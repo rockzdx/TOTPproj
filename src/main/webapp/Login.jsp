@@ -9,10 +9,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Login</title>
+
+
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+
+  <!-- font awesome cdn link  -->
+
 </head>
 <body>
+
+
+<center>
 <form action="/Login" method="post">
 
 
@@ -29,5 +38,10 @@
 
 
 </form>
+
+
+  <p>Don't have an account? <a href="/SignIn">Sign up now</a>.</p>
+</center>
+
 </body>
 </html>

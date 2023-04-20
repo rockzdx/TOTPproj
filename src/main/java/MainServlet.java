@@ -8,7 +8,7 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //response.sendRedirect("/WEB-INF/links.html");
-getServletContext().getRequestDispatcher("/links.html").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/links.html").forward(request,response);
 
     }
 

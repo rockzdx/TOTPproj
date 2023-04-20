@@ -1,7 +1,7 @@
 import org.apache.commons.codec.binary.Base32;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.Crypt;
-
+import org.json.simple.JSONObject;
 import java.util.Random;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -66,6 +66,7 @@ public class DB {
             random.nextBytes(bytes);
             base32 = new Base32();
             String userotphash = base32.encodeToString(bytes);
+            //userotphash.startsWith();
             String sql = "insert into userAuth ( username , pass , useridhash , userotphash , email ) values (?, ?, ?, ?, ?)";
 
             PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
@@ -91,6 +92,7 @@ public class DB {
 
             ResultSet rs = s.executeQuery(sql);
 
+            //ig return only one column
             while (rs.next()) {
                 hash = rs.getString(1);
 
@@ -104,6 +106,50 @@ public class DB {
             return "-1";
         }
 
+    }
+
+    public int retrieveUserID(String uname) throws SQLException {
+        int userid = -1;
+
+        String sql = "Select user_id from userAuth where username ='"+ uname +"';";
+
+        Statement s = this.connection.createStatement();
+        ResultSet rs = s.executeQuery(sql);
+
+
+        //ig return only one column
+        while (rs.next()) {
+            userid = rs.getInt(1);
+        }
+
+        System.out.println(userid);
+        return userid;
+    }
+
+
+    public String retrieveAllHashKey(String uname) throws SQLException {
+        {
+            int user_id = retrieveUserID(uname);
+            String sql = "Select keylist.hashkey from keylist where user_id =" + user_id +";";
+
+            Statement s = this.connection.createStatement();
+
+
+            String hashJson = "";
+
+
+            ResultSet rs = s.executeQuery(sql);
+
+            //ig return only one column
+            while (rs.next()) {
+                hashJson = rs.getString(1);
+
+
+            }
+
+            System.out.println(hashJson);
+            return hashJson;
+        }
     }
 
     public boolean login(String username, String pass){
